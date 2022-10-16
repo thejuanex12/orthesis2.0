@@ -14,23 +14,36 @@
         <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
         <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
         <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" href="style.css">
-        <script src="logic.js"></script>
+        <link rel="stylesheet" type="text/css" href="src\main\resources\static\style.css">
+        <script src="src\main\resources\static\index.html"></script>
     </head>
     <body>
-        <h1>Orthesis Beta Version</h1>
-        <div class="container unauthenticated">
-            Para ver fotos de <i>Gatitos</i>
-            <a href="https://www.google.com/search?q=fotos+de+gatitos&sxsrf=ALiCzsZgVwlPmG8JW4_ImvhqmsUlyxa3vw:1665940612275&source=lnms&tbm=isch&sa=X&ved=2ahUKEwiLiKWzoOX6AhUwTTABHXblC3cQ_AUoAXoECAIQAw&biw=1366&bih=695&dpr=1">haz click</a>
-        </div>
+        
         <div class="container authenticated" style="display:none">
             Autenticado como : <span id="user"></span>
         </div>
-        <div id="canvas-shapes"></div>
-        <div class="content">
-            <h1>CPagina en construcción</h1>
-            <h2>Perdone las molestias</h2>
-        </div>  
+        <div class="context">
+            <h1>Orthesis Beta Version</h1>
+            <div class="container">
+                Para ver fotos de <i>Gatitos</i>
+                <a href="https://www.google.com/search?q=fotos+de+gatitos&sxsrf=ALiCzsZgVwlPmG8JW4_ImvhqmsUlyxa3vw:1665940612275&source=lnms&tbm=isch&sa=X&ved=2ahUKEwiLiKWzoOX6AhUwTTABHXblC3cQ_AUoAXoECAIQAw&biw=1366&bih=695&dpr=1">haz click</a>
+            </div>
+        </div>
+    
+        <div class="area" >
+                <ul class="circles">
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                </ul>
+        </div >  
 <!--You Can Change shapes With "circle" , "square" , "triangle", "hexa" or custom image at Bottom of Js code -->
     </body>
 
