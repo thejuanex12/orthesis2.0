@@ -1,4 +1,4 @@
-package com.example.team7.entities;
+package com.example.retos345.entities;
 
 import java.io.Serializable;
 

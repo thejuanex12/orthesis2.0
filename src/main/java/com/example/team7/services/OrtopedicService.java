@@ -1,12 +1,12 @@
-package com.example.team7.services;
+package com.example.retos345.services;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.team7.entities.Ortopedic;
-import com.example.team7.repositories.OrtopedicRepository;
+import com.example.retos345.entities.Ortopedic;
+import com.example.retos345.repositories.OrtopedicRepository;
 
 
 @Service
