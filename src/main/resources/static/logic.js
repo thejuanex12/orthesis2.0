@@ -1,152 +1,178 @@
-var canvas = document.getElementById("canvas");
-var ctx = canvas.getContext("2d");
+//// You Can Change shapes With "circle" , "square" , "triangle", "hexa" or custom image at Bottom of Js code////
 
-window.onresize = function() {
-  w = ctx.canvas.width = window.innerWidth;
-  h = ctx.canvas.height = window.innerHeight;
-};window.onresize();
-
-lines = [];
-
-conf = {
-  hue: 5,
-  shadow: false,
-  width: 1,
-  length: 1,
-  emitNum: 2,
-  speed: 1,
-  opacity: 0.6,
-  maxLines: 300
-};
-
-bgDots = [
-  {
-    rad: (w+h)/2,
-    x: w/2,
-    y: 0,
-    hue: 0
-  },
-  {
-    rad: (w+h)/2,
-    x: 0,
-    y: h,
-    hue: -45
-  },
-  {
-    rad: (w+h)/2,
-    x: w,
-    y: h,
-    hue: -90
-  }
-];
-
-var gui = new dat.GUI();
-var f1 = gui.addFolder("Design");
-var f2 = gui.addFolder("Behaviour");
-f1.add(conf, "hue", 0, 360).step(1).name("Color");
-f1.add(conf, "opacity", 0.1, 1).step(0.1).name("Opacity");
-f1.add(conf, "width", 0.3, 3).step(0.1).name("Width");
-f1.add(conf, "length", 0.2, 2).step(0.1).name("Length");
-f2.add(conf, "emitNum", 1, 5).step(1).name("Amount");
-f2.add(conf, "speed", 0.5, 1.5).step(0.1).name("Speed");
-f2.add(conf, "maxLines", 100, 1000).step(1).name("Max Lines");
-//gui.add(conf, "shadow");
-
-function emitLine(){
-  if(conf.maxLines < lines.length)
-    return;
-  for(var i = 0; i < conf.emitNum; i++){
-    var rx = Math.random() * w + 100;
-    var ry = Math.random() * h - 100;
-    lines.push({
-      x1: rx,
-      y1: ry,
-      x2: rx,
-      y2: ry,
-      length: (Math.random() * (260 - 80) + 80) * conf.length,
-      width: (Math.random() * (15 - 5) + 5) * conf.width,
-      v1: (Math.random() * (4 - 2) + 2) * conf.speed,
-      v2: (Math.random() * (1 - 0.5) + 0.5) * conf.speed,
-      half: false,
-      hue: Math.random() * 50
-    });
-  }
-}
-
-function drawBackground(){
-  ctx.globalCompositeOperation = "lighter";
-  for(var i = 0; i < bgDots.length; i++){
-    var grd = ctx.createRadialGradient(bgDots[i].x, bgDots[i].y, 0, bgDots[i].x, bgDots[i].y, bgDots[i].rad);
-    grd.addColorStop(0, "hsla("+ (conf.hue + bgDots[i].hue) +", 100%, 60%, 0.3)");
-    grd.addColorStop(1, "hsla("+ (conf.hue + bgDots[i].hue) +", 100%, 50%, 0)");
-    ctx.beginPath();
-    ctx.arc(bgDots[i].x, bgDots[i].y, bgDots[i].rad, 0, Math.PI * 2);
-    ctx.fillStyle = grd;
-    ctx.fill();
-    ctx.closePath();
-  }
-}
-
-function drawLines(){
-  ctx.globalCompositeOperation = "lighter";
-  for(var i = 0; i < lines.length; i++){
-    ctx.lineWidth = lines[i].width;
-    ctx.beginPath();
-    ctx.moveTo(lines[i].x1, lines[i].y1);
-    ctx.lineTo(lines[i].x2, lines[i].y2);
-    ctx.strokeStyle = "hsla("+(conf.hue - lines[i].hue)+", 100%, 50%, " +(conf.opacity)+ ")";
-    ctx.lineCap = "round";
-    ctx.stroke();
-    ctx.closePath();
-
-    if(lines[i].half == false){
-      lines[i].x1 -= lines[i].v1;
-      lines[i].y1 += lines[i].v1;
-      lines[i].x2 -= lines[i].v2;
-      lines[i].y2 += lines[i].v2;
-      if(dist(lines[i].x1, lines[i].y1, lines[i].x2, lines[i].y2) > lines[i].length){
-        lines[i].half = true;
-      }
-    }else{
-      lines[i].x1 -= lines[i].v2;
-      lines[i].y1 += lines[i].v2;
-      lines[i].x2 -= lines[i].v1;
-      lines[i].y2 += lines[i].v1;
+var canvasShape = function(block_id, params) {
+    if (typeof params === "object") {
+        if (typeof params.size === "number") {
+            var radius_ball = params.size;
+        } else {
+            var radius_ball = '10';
+        }
+      if (typeof params.image === "string") {
+            var image = params.image;
+        } else {
+            var image = 'http://kidschemistry.ru/wp-content/themes/fary-chemical/images/smile/icon_cool.png';
+        }
+        if (typeof params.speed === "number") {
+            var speed_ball = params.speed;
+        } else {
+            var speed_ball = '10';
+        }
+        if (typeof params.number_of_item === "number") {
+            if (params.number_of_item > 250) {
+            var total_ball = 250; 
+            } else {
+                var total_ball = params.number_of_item;
+            }
+        } else {
+            var total_ball = '150';
+        }
+        if (typeof params.shape === "string") {
+            var ballShape = params.shape;
+        } else {
+            var ballShape = 'circle';
+        }
+    // Defaule 
+    } else {
+        var radius_ball = '10';
+        var speed_ball = '10';
+        var total_ball = '150';
+        var ballShape = 'square';
     }
-  }
-}
 
-function clear(){
-  ctx.globalCompositeOperation = "source-over";
-  ctx.beginPath();
-  ctx.fillStyle = "#000";
-  ctx.fillRect(0,0,w,h);
-  ctx.closePath();
-}
+    var canvas_el = document.createElement('canvas');
+    var canvas = document.getElementById(block_id).appendChild(canvas_el);
+    var ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    var particles = [];
+    var color1 = params.color;
+    document.getElementById(block_id).setAttribute("style", "position: absolute; left: 0; right: 0;");
 
-function checkLines(){
-  emitLine();
-  for(var i = 0; i < lines.length; i++){
-    if(lines[i].half == true && dist(lines[i].x1, lines[i].y1, lines[i].x2, lines[i].y2) <= 10){
-      lines[i] = lines[lines.length - 1];
-      lines.pop();
-    }else if(lines[i].x1 < 0 && lines[i].x2 < 0 && lines[i].y1 > h && lines[i].y2 > h){
-      lines[i] = lines[lines.length - 1];
-      lines.pop();
+    //Helper function to get a random color - but not too dark
+
+    function GetRandomColor() {
+        if (typeof params.color === "string") {
+            var r = color1;
+            return r;
+        } else {
+            var r = 0,
+                g = 0,
+                b = 0;
+            while (r < 100 && g < 100 && b < 100) {
+                r = Math.floor(Math.random() * 256);
+                g = Math.floor(Math.random() * 256);
+                b = Math.floor(Math.random() * 256);
+            }
+            return "rgb(" + r + "," + g + "," + b + ")";
+        }
     }
-  }
-}
+    //Particle object with random starting position, velocity and color
+    var Particle = function(x, y) {
+        if (!x) {
+            this.x = canvas.width * Math.random();
+        } else {
+            this.x = x;
+        }
+        if (!x) {
+            this.y = canvas.height * Math.random();
+        } else {
+            this.y = y;
+        }
 
-generateLines = setInterval(checkLines, 10);
+        this.vx = speed_ball * Math.random() - 2;
+        this.vy = speed_ball * Math.random() - 2;
+        this.Color = GetRandomColor();
 
-function dist(x1, y1, x2, y2){
-  return Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2));
-}
+    }
+    //Ading two methods
+    Particle.prototype.Draw = function(ctx) {
+        ctx.fillStyle = this.Color;
+        if (ballShape == 'circle') {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, radius_ball, 0, 2 * Math.PI, false);
+            ctx.fill();
+        } else if (ballShape == 'square') {
+            ctx.fillRect(this.x, this.y, radius_ball, radius_ball);
+        } else if (ballShape == "triangle") {
+            var tri = [ctx.beginPath(), ctx.moveTo(this.x, this.y), ctx.lineTo(this.x + radius_ball, this.y + radius_ball), ctx.lineTo(this.x + radius_ball, this.y - radius_ball), ctx.closePath(), ctx.fill()]
+        }else if (ballShape == "hexa"){
+            var side = 0;
+            var size = radius_ball;
+            var x = this.x;
+            var y = this.y;
+            ctx.beginPath();
+            ctx.moveTo(x + size * Math.cos(0), y + size * Math.sin(0));
+            for (side; side < 7; side++) {
+                ctx.lineTo(x + size * Math.cos(side * 2 * Math.PI / 6), y + size * Math.sin(side * 2 * Math.PI / 6));
+            }
+            ctx.fill();
+        } else if(ballShape == "img"){
+            var img = new Image();
+            img.src = image;
+            ctx.drawImage(img, this.x, this.y);
+        }
+    }
+    Particle.prototype.Update = function() {
+        this.x += this.vx;
+        this.y += this.vy;
 
-function render(){
-  clear();
-  drawBackground();
-  drawLines();
-  requestAnimationFrame(render);
-}
-render();
+        if (this.x < 0 || this.x > canvas.width)
+            this.vx = -this.vx;
+
+        if (this.y < 0 || this.y > canvas.height)
+            this.vy = -this.vy;
+    }
+
+    function loop() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        var my_gradient=ctx.createLinearGradient(0,0,1970,0);
+        my_gradient.addColorStop(0,"#0f0c29");
+        my_gradient.addColorStop(0.5,"#302b63");
+        my_gradient.addColorStop(1,"#24243e");
+        ctx.fillStyle=my_gradient;
+        ctx.fillRect(0,0,canvas.width,canvas.height);
+
+        for (var i = 0; i < particles.length; i++) {
+            particles[i].Update();
+            particles[i].Draw(ctx);
+        }
+        requestAnimationFrame(loop);
+    }
+    //Create particles
+    for (var i = 0; i < total_ball; i++)
+        particles.push(new Particle());
+
+    function drawCircle(event) {
+        for (var i = 0; i < 2; i++) {
+            cursorX = event.pageX;
+            cursorY = event.pageY;
+            particles.unshift(new Particle(cursorX, cursorY));
+             if(particles.length > 500){
+              particles.pop();
+            }
+        }
+    }
+    document.getElementById(block_id).style.overflow = 'hidden';
+    document.getElementById(block_id).addEventListener('click', drawCircle);
+    document.getElementById(block_id).addEventListener('mousemove', drawCircle);
+    loop();
+    window.onresize = function() {  
+       canvas_Wth = window.innerWidth;
+       canvas_hgt = window.innerHeight;
+       canvas.width = canvas_Wth;
+       canvas.height = canvas_hgt; 
+    }
+  
+   } 
+
+// // Customization
+canvasShape('canvas-shapes', {
+  size: 6,  // Change Elements Size 
+  speed: 5, // Change Elements Speed
+  number_of_item:600,  // Max Limit Of Iteam 250
+  shape: "circle",  //You Can Change With "circle" , "square" , "triangle", "hexa"
+  // color: '#008000',  // Change Elements Color
+  // image: "http://petitrocher.camp-atlantique.com/sites/default/files/styles/icone_titre_home_25_25/public/icone_smile_soleil_134.png",
+  
+});
