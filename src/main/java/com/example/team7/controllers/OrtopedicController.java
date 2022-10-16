@@ -1,4 +1,4 @@
-package com.example.retos345.controllers;
+package com.example.team7.controllers;
 
 import java.util.List;
 
@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.retos345.entities.Ortopedic;
-import com.example.retos345.services.OrtopedicService;
+import com.example.team7.entities.Ortopedic;
+import com.example.team7.services.OrtopedicService;
 
 @Service
 @RestController

@@ -1,10 +1,10 @@
-package com.example.retos345;
+package com.example.team7;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class Retos345ApplicationTests {
+class Team7ApplicationTests {
 
 	@Test
 	void contextLoads() {

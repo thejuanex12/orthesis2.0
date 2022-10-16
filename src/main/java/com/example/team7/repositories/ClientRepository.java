@@ -1,8 +1,8 @@
-package com.example.retos345.repositories;
+package com.example.team7.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.example.retos345.entities.Client;
+import com.example.team7.entities.Client;
 
 
 

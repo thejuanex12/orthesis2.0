@@ -1,4 +1,4 @@
-package com.example.retos345.controllers;
+package com.example.team7.controllers;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.retos345.entities.Client;
-import com.example.retos345.entities.ReportClient;
-import com.example.retos345.entities.Reservation;
-import com.example.retos345.services.ReservationService;
+import com.example.team7.entities.ReportClient;
+import com.example.team7.entities.Reservation;
+import com.example.team7.services.ReservationService;
 
 @Service
 @RestController

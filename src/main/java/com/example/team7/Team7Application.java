@@ -1,13 +1,13 @@
-package com.example.retos345;
+package com.example.team7;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Retos345Application {
+public class Team7Application {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Retos345Application.class, args);
+		SpringApplication.run(Team7Application.class, args);
 	}
 
 }

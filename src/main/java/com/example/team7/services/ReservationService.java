@@ -1,4 +1,4 @@
-package com.example.retos345.services;
+package com.example.team7.services;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -11,11 +11,11 @@ import java.util.TimeZone;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.retos345.entities.Client;
-import com.example.retos345.entities.ReportClient;
-import com.example.retos345.entities.Reservation;
-import com.example.retos345.repositories.ClientRepository;
-import com.example.retos345.repositories.ReservationRepository;
+import com.example.team7.entities.Client;
+import com.example.team7.entities.ReportClient;
+import com.example.team7.entities.Reservation;
+import com.example.team7.repositories.ClientRepository;
+import com.example.team7.repositories.ReservationRepository;
 
 
 @Service
