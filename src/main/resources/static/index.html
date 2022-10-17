@@ -1,58 +1,74 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE-Edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="author" content="Juan Cañas" />
-        <meta name="description" content="Ejemplo de autenticacion con OAuth2" />
-        <meta name="keywords" content="Orthesis, MisionTIC, Sergio Arboleda" />
+<head>
+    <title>Orthesis 2.0</title>
+    <link type="text/css" rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
 
-        <title>Orthesis Team7</title>
-        <base href="/" />
+<body>
+    <h1 class="titlePage">
+        GESTION CATEGORIAS
+    </h1>
+    <table>
+        <tr>
+            <td>
+                <form autocomplete="off" onsubmit="onCategorySubmit()">
+                    <div>
+                        <label for="categoryId">Id</label>
+                        <p></p>
+                        <input type="text" name="categoryId" id="categoryId">
+                    </div>
+                    <div>
+                        <label for="categoryName">Name</label>
+                        <input type="text" name="categoryName" id="categoryName">
+                    </div>
+                    <div>
+                        <label for="categoryDescription">Description</label>
+                        <input type="text" name="categoryDescription" id="categoryDescription">
+                    </div>
 
-        <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
-        <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
-        <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="Orthesis 2.0\src\main\resources\static\style.css">
-        <script src="Orthesis 2.0\src\main\resources\static\index.html"></script>
-    </head>
-    <body>
-        
-        <div class="container authenticated" style="display:none">
-            Autenticado como : <span id="user"></span>
-        </div>
-        <div class="context">
-            <h1>Orthesis Beta Version</h1>
-            <div class="container">
-                Para ver fotos de <i>Gatitos</i>
-                <a href="https://www.google.com/search?q=fotos+de+gatitos&sxsrf=ALiCzsZgVwlPmG8JW4_ImvhqmsUlyxa3vw:1665940612275&source=lnms&tbm=isch&sa=X&ved=2ahUKEwiLiKWzoOX6AhUwTTABHXblC3cQ_AUoAXoECAIQAw&biw=1366&bih=695&dpr=1">haz click</a>
-            </div>
-        </div>
-    
-        <div class="area" >
-                <ul class="circles">
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                </ul>
-        </div >  
-<!--You Can Change shapes With "circle" , "square" , "triangle", "hexa" or custom image at Bottom of Js code -->
-    </body>
+                    <div class="form_action--button">
+                        <input type="submit" value="Create">
+                    </div>
+                </form>
+                <button onClick="categoryUpdate(this)">Edit</button> 
+                <td>
+                    <table class="list" id="categoryList">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
 
-<script type="text/javascript">
-    $.get("/user", function (data){
-        console.log(data);
-        $("#user").html(data.name);
-        $(".unauthenticated").hide();
-        $(".authenticated").show();
-    })
-</script>
+                        </tbody>
+                    </table>
+                </td>
+            </td>
+        </tr>
+    </table>
+    <div>
+        <h4 class="titlePage">
+            <a href="/client.html">GESTION CLIENTES</a>
+        </h4>
+        <h4 class="titlePage">
+            <a href="/ortopedic.html">GESTION ORTOPEDIC</a>
+        </h4>
+        <h4 class="titlePage">
+            <a href="/messages.html">GESTION MENSAJES</a>
+        </h4>
+        <h4 class="titlePage">
+            <a href="/reservation.html">GESTION RESERVACIONES</a>
+        </h4>
+        <h4 class="titlePage">
+            <a href="/index.html">GESTION CATEGORY</a>
+        </h4>
+        <h4 class="titlePage">
+            <a href="/farm.html">GESTION FARM</a>
+        </h4>
+    </div>
+    <script type="text/javascript" src="./js/category.js"></script>
+</body>
 </html>
